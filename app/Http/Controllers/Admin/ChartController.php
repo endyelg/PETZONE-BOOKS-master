@@ -28,6 +28,7 @@ class ChartController extends Controller
     }
 
 
+
     public function lineChart()
     {
         $result = DB::table('ORDERS as o')
@@ -48,6 +49,8 @@ class ChartController extends Controller
         return response()->json(['data' => $data, 'labels' => $labels]);
     }
 
+
+    
     public function barChart()
     {
         $result = DB::table('CATEGORIES as c')
