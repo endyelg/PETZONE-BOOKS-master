@@ -51,6 +51,7 @@ class ModifyOrdersTable extends Migration
      *
      * @return void
      */
+    
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
