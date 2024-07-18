@@ -1,5 +1,3 @@
-VIEWING NG SINGLE PRODUCT 
-
 @extends('layouts.app')
 
 @section('title', 'Show Product')

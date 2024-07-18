@@ -1,5 +1,3 @@
-DITO YUNG ADD TO CART  
-
 @extends('layouts.app')
 
 @section('title' , 'Checkout')

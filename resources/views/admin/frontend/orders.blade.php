@@ -1,5 +1,3 @@
-ORDER TABLE SANA TO KASO DI NAFEFETCH
-
 <!-- @extends('admin.layouts.app')
 
 @section('title' , 'Admin-Orders')

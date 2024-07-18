@@ -129,22 +129,22 @@ class ExpensesController extends Controller
     protected function validateAddForm(Request $request)
     {
         return Validator::make($request->all(), [
-            'expense_name' => 'required|string|max:255',
+            'expense_name' => 'required|string|min:3|max:255',
             'expense_date' => 'required|date',
             'expense_amount' => 'required|numeric',
-            'expense_payment' => 'required|string|min:1',
-            'expense_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
-        ]);
+            'expense_payment' => 'required|string|min:3',
+            'expense_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ],
+    );
     }
-
     protected function validateUpdateForm(Request $request)
     {
         return Validator::make($request->all(), [
-            'expense_name' => 'required|string|max:255',
+            'expense_name' => 'required|string|min:3|max:255',
             'expense_date' => 'required|date',
             'expense_amount' => 'required|numeric',
-            'expense_payment' => 'required|string|min:1',
-            'expense_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'expense_payment' => 'required|string|min:3',
+            'expense_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
     }
 }

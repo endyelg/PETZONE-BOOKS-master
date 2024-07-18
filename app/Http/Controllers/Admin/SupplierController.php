@@ -129,10 +129,10 @@ class SupplierController extends Controller
     protected function validateAddForm(Request $request)
     {
         return Validator::make($request->all(), [
-            'supplier_name' => 'required|string|max:255',
-            'contact_number' => 'required|digits_between:1,20', // Adjusted to reflect VARCHAR(20) in the database
-            'address' => 'required|string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'supplier_name' => 'required|string|min:3|max:255',
+            'contact_number' => 'required|numeric', // Adjusted to reflect VARCHAR(20) in the database
+            'address' => 'required|string|min:3|max:255',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'prod_id' => 'required|numeric',
         ]);
     }
@@ -140,10 +140,10 @@ class SupplierController extends Controller
     protected function validateUpdateForm(Request $request)
     {
         return Validator::make($request->all(), [
-            'supplier_name' => 'required|string|max:255',
-            'contact_number' => 'required|digits_between:1,20', // Adjusted to reflect VARCHAR(20) in the database
-            'address' => 'required|string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'supplier_name' => 'required|string|min:3|max:255',
+            'contact_number' => 'required|numeric', // Adjusted to reflect VARCHAR(20) in the database
+            'address' => 'required|string|min:3|max:255',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'prod_id' => 'required|numeric',
         ]);
     }

@@ -138,26 +138,26 @@ class UserController extends Controller
     protected function validateAddForm(Request $request)
     {
         return Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:3',
             'email' => 'required|email',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'password' => 'required|string|min:6',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'required|string|min:3',
             'role' => 'required|in:user,admin',
-            'phone_number' => 'required|string|max:20', // Changed field name to match HTML form
-            'address' => 'required|string|max:255',
+            'phone_number' => 'required|numeric', // Changed field name to match HTML form
+            'address' => 'required|string|min:3',
         ]);  
     }
 
     protected function validateUpdateForm(Request $request)
     {
         return Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:3',
             'email' => 'required|email',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'password' => 'required|string|min:6',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'required|string|min:3',
             'role' => 'required|in:user,admin',
-            'phone_number' => 'required|string|max:20', // Changed field name to match HTML form
-            'address' => 'required|string|max:255',
+            'phone_number' => 'required|numeric', // Changed field name to match HTML form
+            'address' => 'required|string|min:3',
         ]);
     }
 

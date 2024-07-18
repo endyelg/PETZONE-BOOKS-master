@@ -6,7 +6,7 @@
 {{-- Add product form start --}}
 <div class="col-12 mt-5">
     <div class="card">
-        <form action="{{ route('admin.products.store')}}" method="POST" enctype="multipart/form-data">
+        <form id="addProductForm" action="{{ route('admin.products.store')}}" method="POST" enctype="multipart/form-data">
         @csrf 
             <div class="card-body">
                 <div class="row">
@@ -55,4 +55,91 @@
     </div>
 </div>
 {{-- Add product form end --}}
+
+<!-- Include jQuery and jQuery Validation Plugin -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $("#addProductForm").validate({
+        rules: {
+            category_id: {
+                required: true
+            },
+            title: {
+                required: true,
+                minlength: 3
+            },
+            description: {
+                required: true,
+                minlength: 10
+            },
+            percent_discount: {
+                required: true,
+                number: true,
+                // min: 0,
+                // max: 100
+            },
+            demo_url: {
+                required: true,
+                url: true
+            },
+            author: {
+                required: true,
+                minlength: 3
+            },
+            price: {
+                required: true,
+                number: true,
+                // min: 1
+            },
+            stock: {
+                required: true,
+                number: true,
+                // min: 1
+            }
+        },
+        messages: {
+            category_id: {
+                required: "Please select a category"
+            },
+            title: {
+                required: "The title field is required",
+                minlength: "The title must be at least 3 characters"
+            },
+            description: {
+                required: "The description field is required",
+                minlength: "The description must be at least 10 characters"
+            },
+            percent_discount: {
+                required: "The percent discount field is required",
+                number: "Please enter a valid number",
+                // min: "The percent discount must be at least 1",
+                // max: "The percent discount must not be greater than 100"
+            },
+            demo_url: {
+                required: "The demo url must be a valid URL"
+            },
+            author: {
+                required: "The author field is required",
+                minlength: "The author must be at least 3 characters"
+            },
+            price: {
+                required: "The price field is required",
+                number: "The price must be a number",
+                // min: "The price must be at least 1"
+            },
+            stock: {
+                required: "The stock field is required",
+                number: "The stock must be a number",
+                // min: "The price must be at least 1"
+            }
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+</script>
 @endsection

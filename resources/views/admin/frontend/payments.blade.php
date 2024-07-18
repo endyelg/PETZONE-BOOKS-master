@@ -1,6 +1,3 @@
-WALA NA TO
-
-
 <!-- @extends('admin.layouts.app')
 
 @section('title' , 'Admin-Payments')
