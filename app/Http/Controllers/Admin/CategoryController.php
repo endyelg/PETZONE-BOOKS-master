@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CategoriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Services\Admin\Traits\HasCategory;
@@ -17,13 +18,10 @@ class CategoryController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(CategoriesDataTable $dataTable)
     {
-        $categories = Category::paginate(10);
-
-        return view('admin.frontend.categories.index', compact('categories'));
+        return $dataTable->render('admin.frontend.categories.index');
     }
-
     /**
      * Add a new category
      *

@@ -78,8 +78,6 @@ $(document).ready(function() {
             percent_discount: {
                 required: true,
                 number: true,
-                // min: 0,
-                // max: 100
             },
             demo_url: {
                 required: true,
@@ -92,12 +90,11 @@ $(document).ready(function() {
             price: {
                 required: true,
                 number: true,
-                // min: 1
             },
             stock: {
                 required: true,
                 number: true,
-                // min: 1
+
             }
         },
         messages: {
@@ -115,8 +112,6 @@ $(document).ready(function() {
             percent_discount: {
                 required: "The percent discount field is required",
                 number: "Please enter a valid number",
-                // min: "The percent discount must be at least 1",
-                // max: "The percent discount must not be greater than 100"
             },
             demo_url: {
                 required: "The demo url must be a valid URL"
@@ -128,12 +123,10 @@ $(document).ready(function() {
             price: {
                 required: "The price field is required",
                 number: "The price must be a number",
-                // min: "The price must be at least 1"
             },
             stock: {
                 required: "The stock field is required",
                 number: "The stock must be a number",
-                // min: "The price must be at least 1"
             }
         },
         submitHandler: function(form) {

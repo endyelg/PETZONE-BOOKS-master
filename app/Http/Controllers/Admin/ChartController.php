@@ -52,24 +52,20 @@ class ChartController extends Controller
 
     
     public function barChart()
-    {
-        $result = DB::table('CATEGORIES as c')
-                    ->join('PRODUCTS as p', 'c.id', '=', 'p.category_id')
-                    ->join('ORDER_PRODUCT as op', 'p.id', '=', 'op.product_id')
-                    ->join('ORDERS as o', 'op.order_id', '=', 'o.id')
-                    ->select(DB::raw('c.title AS category, SUM(o.price) AS total_sales'))
-                    ->groupBy('c.title')
-                    ->get();
+{
+    $result = DB::table('CATEGORIES as c')
+                ->join('PRODUCTS as p', 'c.id', '=', 'p.category_id')
+                ->join('ORDER_PRODUCT as op', 'p.id', '=', 'op.product_id')
+                ->join('ORDERS as o', 'op.order_id', '=', 'o.id')
+                ->groupBy('c.title')
+                ->orderBy('total_sales')
+                ->pluck(DB::raw('SUM(o.price) as total_sales'), 'c.title')
+                ->all();
 
-        $labels = [];
-        $data = [];
+    $labels = array_keys($result);
+    $data = array_values($result);
 
-        foreach ($result as $val) {
-            $labels[] = $val->category;
-            $data[] = $val->total_sales;
-        }
-
-        return response()->json(['data' => $data, 'labels' => $labels]);
-    }
+    return response()->json(['data' => $data, 'labels' => $labels]);
+}
 }
 
