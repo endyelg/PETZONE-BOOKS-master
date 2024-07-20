@@ -29,24 +29,42 @@
 <!-- Categories list start -->
 <div class="main-content-inner">
   <div class="row">
-    {!! $dataTable->table(['class' => 'table table-bordered table-striped', 'id' => 'categories-table'], true) !!}
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>Id</th>
+          <th>Website Genre</th>
+          <th>Category</th>
+          <!-- <th>Joined</th> -->
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($categories as $category)
+          <tr>
+            <th>{{ $category->id }}</th>
+            <th>{{ $category->slug }}</th>
+            <th>{{ $category->title }}</th>
+            <!-- <th>{{ $category->created_at }}</th> -->
+            <th>
+              <form action="{{ route('admin.categories.destroy' , $category->id) }}" method="POST" id='prepare-form'>
+              @csrf
+              @method('delete')
+                <button type="submit" id="button-delete"><span class="ti-trash"></span></button>
+              </form>
+              |
+              <a href="{{ route('admin.categories.edit' , $category->id) }}" id="a-black"><span class="ti-pencil"></span></a>
+            </th>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {{ $categories->links() }}
+      </ul>
+    </nav>  
   </div>
 </div>
 <!-- Categories list end -->
 @endsection
-
-@push('scripts')
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/2.1.0/css/dataTables.dataTables.min.css"></script>
-    <script src="https://cdn.datatables.net/2.1.0/js/dataTables.dataTables.min.js"></script>
-    <script>
-        var categoriesIndexUrl = "{{ route('admin.categories.index') }}";
-    </script>
-    <script src="{{ asset('public/js/datatables-init.js') }}"></script>
-    {!! $dataTable->scripts() !!}
-@endpush

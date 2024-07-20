@@ -7,6 +7,7 @@ use App\Models\Expenses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class ExpensesController extends Controller
 {
@@ -119,6 +120,28 @@ class ExpensesController extends Controller
 
             return back()->with('simpleSuccessAlert' , 'Expenses removed successfully');
 
+    }
+
+
+    public function index()
+    {
+        if (request()->ajax()) {
+            $expenses = Expenses::query();
+            return DataTables::of($expenses)
+                ->addColumn('action', function($row){
+                    $deleteForm = '<form action="'.route('admin.expenses.destroy', $row->id).'" method="POST" id="prepare-form" style="display:inline;">
+                                    '.csrf_field().'
+                                    '.method_field('DELETE').'
+                                    <button type="submit" id="button-delete"><span class="ti-trash"></span></button>
+                                   </form>';
+                    $editLink = '<a href="'.route('admin.expenses.edit', $row->id).'" id="a-black"><span class="ti-pencil"></span></a>';
+                    return $deleteForm . ' | ' . $editLink;
+                })
+                ->make(true);
+        }
+
+        $expenses = Expenses::all(); // Fetch all expenses for non-AJAX requests
+        return view('admin.frontend.expenses.list', compact('expenses'));
     }
     /**
      * Validate form data for adding a new supplier.

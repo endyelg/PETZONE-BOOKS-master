@@ -61,6 +61,7 @@ Route::prefix('/admin')->group(function(){
         Route::delete('/{category}/remove' , [CategoryController::class , 'destroy'])->name('admin.categories.destroy');
         Route::get('/{category}/edit' , [CategoryController::class , 'edit'])->name('admin.categories.edit');
         Route::put('/{category}/update' , [CategoryController::class , 'update'])->name('admin.categories.update');
+        Route::get('/data', [CategoryController::class, 'getData'])->name('admin.categories.data');
     });
     /* For products */
     Route::prefix('/products')->group(function(){
@@ -97,8 +98,9 @@ Route::prefix('/admin')->group(function(){
         Route::delete('/{expense}/remove' , [ExpensesController::class , 'destroy'])->name('admin.expenses.destroy');
         Route::get('/{expense}/edit' , [ExpensesController::class , 'edit'])->name('admin.expenses.edit');
         Route::put('/{expense}/update' , [ExpensesController::class , 'update'])->name('admin.expenses.update');
-});
-Route::prefix('/charts')->group(function(){
+        Route::get('/data', [ExpensesController::class, 'getData'])->name('admin.expenses.data');
+    });
+    Route::prefix('/charts')->group(function(){
         Route::get('/pie', [ChartController::class, 'pieChart'])->name('admin.charts.pie');
         Route::get('/line', [ChartController::class, 'lineChart'])->name('admin.charts.line');
         Route::get('/bar', [ChartController::class, 'barChart'])->name('admin.charts.bar');
@@ -126,3 +128,5 @@ Route::middleware(['web'])->group(function () {
     Route::get('/admin/reviews', 'Admin\ReviewController@index')->name('admin.reviews.list');
 
 });
+
+Route::get('admin/categories/data', [CategoryController::class, 'getData'])->name('admin.categories.data');
