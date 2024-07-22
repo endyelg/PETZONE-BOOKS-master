@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -127,6 +128,28 @@ class UserController extends Controller
         $user->delete();
 
         return back()->with('simpleSuccessAlert' , 'User removed successfully');
+    }
+
+
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $users = User::query();
+            return DataTables::of($users) // Corrected from $user to $users
+                ->addColumn('action', function($row){
+                    $deleteForm = '<form action="'.route('admin.users.destroy', $row->id).'" method="POST" id="prepare-form" style="display:inline;">
+                                '.csrf_field().'
+                                '.method_field('DELETE').'
+                                <button type="submit" id="button-delete"><span class="ti-trash"></span></button>
+                            </form>';
+                    $editLink = '<a href="'.route('admin.users.edit', $row->id).'" id="a-black"><span class="ti-pencil"></span></a>';
+                    return $deleteForm. '|' .$editLink;
+                })
+                ->make(true);
+        }
+
+        $users = User::all(); // Corrected from $user to $users
+        return view('admin.frontend.users.list', compact('users')); // Corrected from 'user' to 'users'
     }
 
     /**

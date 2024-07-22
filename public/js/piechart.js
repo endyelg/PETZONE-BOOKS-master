@@ -1,15 +1,10 @@
-
-$(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: "/api/dashboard/pie-chart", // Update the URL to match your Laravel route
-        dataType: "json",
-        success: function (data) {
-            console.log(data); // Check if the data is correct
-
-            var ctx = document.getElementById('pieChart').getContext('2d');
-            var myPieChart = new Chart(ctx, {
-                type: 'doughnut', // Change type to doughnut
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/admin/chart/pie-chart')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
                 data: {
                     labels: data.labels,
                     datasets: [{
@@ -35,18 +30,17 @@ $(document).ready(function () {
                 },
                 options: {
                     responsive: true,
-                    cutoutPercentage: 70, // Adjust this value to control the size of the hole in the middle (0 for pie, 50-60 for a thin donut, up to 80 for a very large hole)
-                    circumference: 2 * Math.PI,
-                    rotation: -Math.PI,
-                    animation: {
-                        animateScale: true,
-                        animateRotate: true
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Category Products Count'
+                        }
                     }
                 }
             });
-        },
-        error: function (error) {
-            console.log(error); // Check for errors in the AJAX call
-        }
-    });
+        })
+        .catch(error => console.error('Error fetching pie chart data:', error));
 });
