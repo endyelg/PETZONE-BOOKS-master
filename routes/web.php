@@ -83,13 +83,14 @@ Route::prefix('/admin')->group(function(){
         Route::put('/{user}/update' , [UserController::class , 'update'])->name('admin.users.update');
     });
     Route::prefix('/suppliers')->group(function(){
-        Route::get('' , [SupplierController::class , 'all'])->name('admin.suppliers.all');
-        Route::get('/create' , [SupplierController::class , 'create'])->name('admin.suppliers.create');
-        Route::post('' , [SupplierController::class , 'store'])->name('admin.suppliers.store');
-        Route::delete('/{supplier}/remove' , [SupplierController::class , 'destroy'])->name('admin.suppliers.destroy');
-        Route::get('/{supplier}/edit' , [SupplierController::class , 'edit'])->name('admin.suppliers.edit');
-        Route::put('/{supplier}/update' , [SupplierController::class , 'update'])->name('admin.suppliers.update');
-});
+        Route::get('', [SupplierController::class, 'index'])->name('admin.suppliers.index');
+        Route::get('/create', [SupplierController::class, 'create'])->name('admin.suppliers.create');
+        Route::post('', [SupplierController::class, 'store'])->name('admin.suppliers.store');
+        Route::delete('/{supplier}/remove', [SupplierController::class, 'destroy'])->name('admin.suppliers.destroy');
+        Route::get('/{supplier}/edit', [SupplierController::class, 'edit'])->name('admin.suppliers.edit');
+        Route::put('/{supplier}/update', [SupplierController::class, 'update'])->name('admin.suppliers.update');
+    });
+    
     /* For expenses */
     Route::prefix('/expenses')->group(function(){
         Route::get('' , [ExpensesController::class , 'all'])->name('admin.expenses.all');

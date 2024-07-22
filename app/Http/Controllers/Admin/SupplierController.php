@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class SupplierController extends Controller
 {
@@ -119,6 +120,32 @@ class SupplierController extends Controller
 
         return back()->with('simpleSuccessAlert' , 'Supplier removed successfully');
     }
+    
+    public function index()
+    {
+        if (request()->ajax()) {
+            $suppliers = Supplier::query();
+            return DataTables::of($suppliers)
+                ->addColumn('action', function($row){
+                    $deleteForm = '<form action="'.route('admin.suppliers.destroy', $row->id).'" method="POST" id="prepare-form" style="display:inline;">
+                                    '.csrf_field().'
+                                    '.method_field('DELETE').'
+                                    <button type="submit" id="button-delete"><span class="ti-trash"></span></button>
+                                   </form>';
+                    $editLink = '<a href="'.route('admin.suppliers.edit', $row->id).'" id="a-black"><span class="ti-pencil"></span></a>';
+                    return $deleteForm . ' | ' . $editLink;
+                })
+                ->editColumn('image_path', function($row) {
+                    return $row->image_path ? '<img src="'.asset('storage/'.$row->image_path).'" alt="Supplier Image" width="50">' : 'No Image';
+                })
+                ->rawColumns(['action', 'image_path'])
+                ->make(true);
+        }
+
+        $suppliers = Supplier::all(); // Fetch all suppliers for non-AJAX requests
+        return view('admin.frontend.suppliers.list', compact('suppliers'));
+    }
+
     
     /**
      * Validate form data for adding a new supplier.
