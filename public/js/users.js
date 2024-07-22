@@ -1,3 +1,5 @@
+//Initializing DataTable
+
 $(document).ready(function() {
     $('#users-table').DataTable({
         processing: true,

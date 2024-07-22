@@ -130,7 +130,7 @@ class UserController extends Controller
         return back()->with('simpleSuccessAlert' , 'User removed successfully');
     }
 
-
+//for datatables
     public function index(Request $request)
     {
         if ($request->ajax()) {
