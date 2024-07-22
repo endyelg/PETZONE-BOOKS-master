@@ -122,7 +122,7 @@ class ExpensesController extends Controller
 
     }
 
-
+//for datatables
     public function index()
     {
         if (request()->ajax()) {

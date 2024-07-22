@@ -1,3 +1,5 @@
+//Initializing DataTable
+
 $(document).ready(function() {
     $('#expenses-table').DataTable({
         processing: true,
