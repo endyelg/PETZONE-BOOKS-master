@@ -9,6 +9,8 @@ use App\Services\Admin\Traits\HasProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class productController extends Controller{
     use HasProduct;

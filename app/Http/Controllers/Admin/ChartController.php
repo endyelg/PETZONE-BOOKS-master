@@ -8,6 +8,8 @@ use DB;
 
 class ChartController extends Controller
 {
+
+    // piechart
     public function pieChart()
     {
         $result = DB::table('CATEGORIES as c')
@@ -16,44 +18,32 @@ class ChartController extends Controller
                     ->groupBy('c.id', 'c.title')
                     ->get();
 
-        $labels = [];
-        $data = [];
+        $labels = $result->pluck('category_title')->toArray(); // Extracting labels
+        $data = $result->pluck('products_count')->toArray(); // Extracting data
 
-        foreach ($result as $val) {
-            $labels[] = $val->category_title;
-            $data[] = $val->products_count;
-        }
-
-        return response()->json(['data' => $data, 'labels' => $labels]);
+        return response()->json(array('data' => $data, 'labels' => $labels));
     }
 
-
-
+    // linechart
     public function lineChart()
     {
-        $result = DB::table('ORDERS as o')
+        $line = DB::table('ORDERS as o')
                     ->join('ORDER_PRODUCT as op', 'o.id', '=', 'op.order_id')
                     ->select(DB::raw("DATE_FORMAT(o.date_placed, '%M') AS month, SUM(o.price) AS total_sales"))
                     ->groupBy(DB::raw("DATE_FORMAT(o.date_placed, '%M')"))
                     ->orderBy(DB::raw("MONTH(o.date_placed)"))
                     ->get();
+                    $labels = (array_keys($line));
 
-        $labels = [];
-        $data = [];
-
-        foreach ($result as $val) {
-            $labels[] = $val->month;
-            $data[] = $val->total_sales;
-        }
-
-        return response()->json(['data' => $data, 'labels' => $labels]);
+                    $data = array_values($line);
+                    return response()->json(array('data' => $data, 'labels' => $labels));
     }
 
-
     
+    //barchart   
     public function barChart()
 {
-    $result = DB::table('CATEGORIES as c')
+    $bar = DB::table('CATEGORIES as c')
                 ->join('PRODUCTS as p', 'c.id', '=', 'p.category_id')
                 ->join('ORDER_PRODUCT as op', 'p.id', '=', 'op.product_id')
                 ->join('ORDERS as o', 'op.order_id', '=', 'o.id')
@@ -62,10 +52,10 @@ class ChartController extends Controller
                 ->pluck(DB::raw('SUM(o.price) as total_sales'), 'c.title')
                 ->all();
 
-    $labels = array_keys($result);
-    $data = array_values($result);
+                $labels = (array_keys($bar));
 
-    return response()->json(['data' => $data, 'labels' => $labels]);
+                $data = array_values($bar);
+                return response()->json(array('data' => $data, 'labels' => $labels));
 }
 }
 

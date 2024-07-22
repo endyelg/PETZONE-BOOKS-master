@@ -1,63 +1,68 @@
 @extends('admin.layouts.app')
 
-@section('title' , 'Admin-Products')
+@section('title', 'Admin - Products')
 
 @section('content')
-<!-- Product list start -->
+<!-- Products list start -->
 <div class="main-content-inner">
     <div class="row">
-        <table class="table">
-            <thead class="table-dark">
-              <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Author</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Discount</th>
-                <th>Stock</th>
-                <!-- <th>Built</th> -->
-                <th>Action</th>
-              </tr>
+        <table class="table" id="products-table">
+            <thead class="table-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Stock</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
-              @foreach ($products as $product)
-                <tr>
-                  <th>{{ $product->id }}</th>
-                  <th>{{ $product->title }}</th>
-                  <th>{{ $product->category->title }}</th>
-                  <th>{{ $product->author }}</th>
-                  <th>{{ substr($product->description , 0 , 15) . '...' }}</th>
-                  <th>
-                  <img src="{{ asset('images/products/' . $product->demo_url) }}" alt="Demo Image" width="160" height="160">
-                    <!-- |
-                    <a href="{{ $product->demo_url }}" download id="a-black"><span class="ti-download"></span></a> -->
-                  </th>
-                  <th>${{ $product->price }}</th>
-                  <th>{{ $product->percent_discount }}</th>
-                  <th>{{ $product->stock }}</th>
-                  <!-- <th>{{ $product->created_at }}</th> -->
-                  <th>
-                    <form action="{{ route('admin.products.destroy' , $product->id) }}" method="POST" id="prepare-form">
-                    @csrf
-                    @method('delete')
-                      <button type="submit" id="button-delete"><span class="ti-trash"></span></button>
-                    </form>
-                    |
-                    <a href="{{ route('admin.products.edit' , $product->id)}}" id="a-black"><span class="ti-pencil"></span></a>
-                  </th>
-                </tr>
-              @endforeach
+                @foreach($products as $product)
+                    <tr>
+                        <td>{{ $product->id }}</td>
+                        <td>{{ $product->title }}</td>
+                        <td>{{ $product->category->title }}</td>
+                        <td>{{ $product->author }}</td>
+                        <td>{{ substr($product->description, 0, 15) . '...' }}</td>
+                        <td>
+                            @if($product->demo_url)
+                                <img src="{{ asset('images/products/' . $product->demo_url) }}" alt="Demo Image" width="50">
+                            @else
+                                No Image
+                            @endif
+                        </td>
+                        <td>${{ $product->price }}</td>
+                        <td>{{ $product->percent_discount }}</td>
+                        <td>{{ $product->stock }}</td>
+                        <td>
+                            <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            {{ $products->links() }}
-          </ul>
-        </nav>  
     </div>
 </div>
 <!-- Products list end -->
 @endsection
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+@endpush
+
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('js/products.js') }}"></script>
+@endpush

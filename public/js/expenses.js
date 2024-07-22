@@ -6,10 +6,10 @@ $(document).ready(function() {
         order: [[0, 'asc']], // Default sorting by the first column (ID) in ascending order
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'expense_name', name: 'expense_name' },
-            { data: 'expense_date', name: 'expense_date' },
-            { data: 'expense_amount', name: 'expense_amount' },
-            { data: 'expense_payment', name: 'expense_payment' },
+            { data: 'expense_name', title: 'expense_name' },
+            { data: 'expense_date', title: 'expense_date' },
+            { data: 'expense_amount', title: 'expense_amount' },
+            { data: 'expense_payment', title: 'expense_payment' },
             { 
                 data: 'expense_img', 
                 name: 'expense_img',
