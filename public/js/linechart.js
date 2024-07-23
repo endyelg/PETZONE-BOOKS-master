@@ -12,7 +12,7 @@ $(document).ready(function () {
                 data: {
                     labels: data.labels,
                     datasets: [{
-                        label: 'Number of Customers per town',
+                        label: 'Monthly sales over time',
                         data: data.data,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -64,7 +64,7 @@ $(document).ready(function () {
                 data: {
                     labels: data.labels,
                     datasets: [{
-                        label: 'Monthly sales',
+                        label: 'sales per category',
                         data: data.data,
                         backgroundColor: [
                             'rgba(75, 192, 192, 0.2)',

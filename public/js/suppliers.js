@@ -2,7 +2,7 @@ $(document).ready(function() {
     $('#suppliers-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route('admin.suppliers.index') }}',
+        ajax: '{{ route('admin.suppliers.all') }}',
         order: [[0, 'asc']], // Default sorting by the first column (ID) in ascending order
         columns: [
             { data: 'supplier_name', name: 'supplier_name' },
