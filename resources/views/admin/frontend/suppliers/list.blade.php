@@ -1,3 +1,4 @@
+<!-- suppliers.blade.php -->
 @extends('admin.layouts.app')
 
 @section('title', 'Admin - Suppliers')
@@ -6,9 +7,11 @@
 <!-- Suppliers table start -->
 <div class="main-content-inner">
     <div class="row">
-        <table class="table" id="suppliers-table">
-            <thead class="table-light">
-                <tr>
+        <div class="table-responsive">
+        <table id="ctable" class="table table-striped table-hover custom-table">
+        <link rel="stylesheet" href="{{ asset('css/table.css') }}">
+                <thead>
+                    <tr>
                     <th>Supplier Name</th>
                     <th>Contact Number</th>
                     <th>Address</th>
@@ -17,7 +20,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="suppliers-table">
                 @foreach($suppliers as $supplier)
                     <tr>
                         <td>{{ $supplier->supplier_name }}</td>
@@ -32,34 +35,22 @@
                         </td>
                         <td>{{ $supplier->prod_id }}</td>
                         <td>
-                            <a href="{{ route('admin.suppliers.edit', $supplier->id) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ route('admin.suppliers.edit', $supplier->id) }}" class="btn btn-primary">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
                             <form action="{{ route('admin.suppliers.destroy', $supplier->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
-        </table>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                {{ $suppliers->links() }}
-            </ul>
-        </nav>  
+        </table>  
     </div>
 </div>
 <!-- Suppliers table end -->
 @endsection
-
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-@endpush
-
-@push('scripts')
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('js/suppliers.js') }}"></script>
-@endpush
