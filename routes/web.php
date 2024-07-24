@@ -130,4 +130,8 @@ Route::middleware(['web'])->group(function () {
 });
 
 Route::get('admin/categories/data', [CategoryController::class, 'getData'])->name('admin.categories.data');
-Route::view('/charts', 'admin.charts.bar');
+// Route::view('/charts', 'admin.charts.bar');
+
+Route::view('/admin/charts/bar', 'admin.charts.bar')->name('admin.charts.bar');
+Route::view('/admin/charts/line', 'admin.charts.line')->name('admin.charts.line');
+Route::view('/admin/charts/pie', 'admin.charts.pie')->name('admin.charts.pie');

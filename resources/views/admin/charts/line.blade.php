@@ -1,23 +1,25 @@
 @extends('admin.layouts.app')
-
-@section('title', 'Admin-Charts linegraph')
+@extends('master')
+@section('title', 'Line Chart')
 
 @section('content')
-
 <style>
     /* Center the line chart */
     #chart-container {
         margin: 0 auto;
         text-align: center;
     }
+    /* #lineChart {
+        width: 100%; 
+        height: 400px; 
+    } */
 </style>
 
-<div id="linechart-container">
+<div id="chart-container">
     <canvas id="lineChart"></canvas>
-  </div>
+</div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="{{ asset('public/js/piechart.js') }}"></script>
-  
+@section('scripts')
+<script src="{{ asset('public/js/charts.js') }}"></script> <!-- Include your charts.js file -->
+@endsection
 @endsection

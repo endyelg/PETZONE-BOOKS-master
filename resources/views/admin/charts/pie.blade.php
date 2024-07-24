@@ -1,22 +1,25 @@
 @extends('admin.layouts.app')
-
-@section('title' , 'Admin-Charts piegraph')
+@extends('master')
+@section('title', 'Pie Chart')
 
 @section('content')
-  <style>
+<style>
     /* Center the pie chart */
-    #piechart-container {
-      margin: 0 auto;
-      text-align: center;
+    #chart-container {
+        margin: 0 auto;
+        text-align: right;
     }
-  </style>
+    /* #pieChart {
+        width: 100%; 
+        height: 500px; 
+    } */
+</style>
 
-  <div id="piechart-container">
+<div id="chart-container">
     <canvas id="pieChart"></canvas>
-  </div>
+</div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="{{ asset('public/js/piechart.js') }}"></script>
-  
+@section('scripts')
+<script src="{{ asset('public/js/charts.js') }}"></script> <!-- Include your charts.js file -->
+@endsection
 @endsection

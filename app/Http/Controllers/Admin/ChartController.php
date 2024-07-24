@@ -33,12 +33,13 @@ class ChartController extends Controller
                     ->groupBy(DB::raw("DATE_FORMAT(o.date_placed, '%M')"))
                     ->orderBy(DB::raw("MONTH(o.date_placed)"))
                     ->get();
-                    $labels = (array_keys($line));
-
-                    $data = array_values($line);
-                    return response()->json(array('data' => $data, 'labels' => $labels));
+    
+        // Extracting labels and data correctly
+        $labels = $line->pluck('month')->toArray(); // Get month names as labels
+        $data = $line->pluck('total_sales')->toArray(); // Get total sales as data
+    
+        return response()->json(['data' => $data, 'labels' => $labels]);
     }
-
     
     //barchart   
     public function barChart()
@@ -58,4 +59,3 @@ class ChartController extends Controller
                 return response()->json(array('data' => $data, 'labels' => $labels));
 }
 }
-
