@@ -14,7 +14,6 @@
 <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
 <script src="{{ asset('js/expenses.js') }}"></script>
 <script src="{{ asset('js/suppliers.js') }}"></script>
+<script src="{{ asset('js/users.js') }}"></script>
 <!-- <script src="{{ asset('js/dashboard.js') }}"></script>
 <script src="{{ asset('js/shop.js') }}"></script> -->
-<script src="{{ asset('js/expensesValidation.js') }}"></script>
-<script src="{{ asset('js/suppliersValidation.js') }}"></script>
