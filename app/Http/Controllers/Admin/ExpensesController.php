@@ -123,31 +123,31 @@ class ExpensesController extends Controller
     }
 
 //for datatables
-public function index()
-{
-    if (request()->ajax()) {
-        $products = Product::with('category'); // Using eager loading for category
-        return DataTables::of($products)
-            ->addColumn('action', function($row){
-                $deleteForm = '<form action="'.route('admin.products.destroy', $row->id).'" method="POST" id="prepare-form" style="display:inline;">
-                                '.csrf_field().'
-                                '.method_field('DELETE').'
-                                <button type="submit" class="btn btn-danger"><span class="ti-trash"></span></button>
-                               </form>';
-                $editLink = '<a href="'.route('admin.products.edit', $row->id).'" class="btn btn-primary"><span class="ti-pencil"></span></a>';
-                return $deleteForm . ' | ' . $editLink;
-            })
-            ->addColumn('image', function($row){
-                $imagePath = $row->demo_url ? asset('images/products/' . $row->demo_url) : null;
-                return $imagePath ? '<img src="'.$imagePath.'" alt="Product Image" width="50">' : 'No Image';
-            })
-            ->rawColumns(['action', 'image']) // Ensure HTML is not escaped
-            ->make(true);
-    }
+    public function index()
+    {
+        if (request()->ajax()) {
+            $products = Product::with('category'); // Using eager loading for category
+            return DataTables::of($products)
+                ->addColumn('action', function($row){
+                    $deleteForm = '<form action="'.route('admin.products.destroy', $row->id).'" method="POST" id="prepare-form" style="display:inline;">
+                                    '.csrf_field().'
+                                    '.method_field('DELETE').'
+                                    <button type="submit" class="btn btn-danger"><span class="ti-trash"></span></button>
+                                   </form>';
+                    $editLink = '<a href="'.route('admin.products.edit', $row->id).'" class="btn btn-primary"><span class="ti-pencil"></span></a>';
+                    return $deleteForm . ' | ' . $editLink;
+                })
+                ->addColumn('image', function($row){
+                    $imagePath = $row->demo_url ? asset('images/products/' . $row->demo_url) : null;
+                    return $imagePath ? '<img src="'.$imagePath.'" alt="Product Image" width="50">' : 'No Image';
+                })
+                ->rawColumns(['action', 'image']) // Ensure HTML is not escaped
+                ->make(true);
+        }
 
-    $products = Product::paginate(10); // Fetch paginated products for non-AJAX requests
-    return view('admin.frontend.products.list', compact('products'));
-}
+        $products = Product::paginate(10); // Fetch paginated products for non-AJAX requests
+        return view('admin.frontend.products.list', compact('products'));
+    }
     /**
      * Validate form data for adding a new supplier.
      *

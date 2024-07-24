@@ -31,6 +31,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('api.checkout.process');
 });
 
+
+//admin expenses
+
 //api for charts
 Route::prefix('/dashboard')->group(function(){
     Route::get('/pie-chart', [ChartController::class, 'pieChart'])->name('api.charts.pie');
