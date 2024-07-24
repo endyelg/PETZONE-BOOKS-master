@@ -15,5 +15,5 @@
 <script src="{{ asset('js/expenses.js') }}"></script>
 <script src="{{ asset('js/suppliers.js') }}"></script>
 <script src="{{ asset('js/users.js') }}"></script>
-<!-- <script src="{{ asset('js/dashboard.js') }}"></script>
-<script src="{{ asset('js/shop.js') }}"></script> -->
+<script src="{{ asset('js/products.js') }}"></script>
+<script src="{{ asset('js/categories.js') }}"></script>

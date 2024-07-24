@@ -16,7 +16,7 @@ class CategoryController extends Controller{
      *
      * @return void
      */
-    public function all(){
+    public function index(){
         $categories = Category::paginate(10);
 
         return view('admin.frontend.categories.index' , compact('categories'));
@@ -70,24 +70,34 @@ class CategoryController extends Controller{
         return back()->with('simpleSuccessAlert' , 'Remove category successfully');
     }
 
-    public function index()
-    {
-        if (request()->ajax()) {
-            $categories = Category::query();
-            return DataTables::of($categories)
-                ->addColumn('action', function($row){
-                    $deleteForm = '<form action="'.route('admin.categories.destroy', $row->id).'" method="POST" id="prepare-form" style="display:inline;">
-                                    '.csrf_field().'
-                                    '.method_field('DELETE').'
-                                    <button type="submit" id="button-delete"><span class="ti-trash"></span></button>
-                                   </form>';
-                    $editLink = '<a href="'.route('admin.categories.edit', $row->id).'" id="a-black"><span class="ti-pencil"></span></a>';
-                    return $deleteForm . ' | ' . $editLink;
-                })
-                ->make(true);
-        }
+    // public function index(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $categories = Category::all();
 
-        // Load the view without data for non-AJAX requests
-        return view('admin.frontend.categories.index');
-    }
+    //         // If using DataTables for server-side processing
+    //         return DataTables::of($categories)
+    //             ->addColumn('action', function ($row) {
+    //                 $editUrl = route('admin.categories.edit', $row->id);
+    //                 $deleteUrl = route('admin.categories.destroy', $row->id);
+    //                 return '
+    //                     <a href="' . $editUrl . '" class="btn btn-primary" title="Edit">
+    //                         <i class="fa fa-pencil" aria-hidden="true"></i>
+    //                     </a>
+    //                     <form action="' . $deleteUrl . '" method="POST" style="display:inline;" class="delete-form">
+    //                         ' . csrf_field() . '
+    //                         ' . method_field('DELETE') . '
+    //                         <button type="submit" class="btn btn-danger" title="Delete">
+    //                             <i class="fa fa-trash" aria-hidden="true"></i>
+    //                         </button>
+    //                     </form>';
+    //             })
+    //             ->rawColumns(['action']) // Allow HTML in action column
+    //             ->make(true);
+    //     }
+
+    //     // Non-AJAX request (standard view rendering)
+    //     $categories = Category::paginate(10);
+    //     return view('admin.categories.index', compact('categories'));
+    // }
 }

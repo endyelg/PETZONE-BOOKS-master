@@ -3,7 +3,7 @@
 @section('title' , 'Admin-Edit product')
     
 @section('content')
-{{-- Edit product form start --}}
+
 <div class="col-12 mt-5">
     <div class="card">
         <form id="editProductForm" action="{{ route('admin.products.update' , $product->id) }}" method="POST" enctype="multipart/form-data">
@@ -56,84 +56,4 @@
         </form>
     </div>
 </div>
-{{-- Edit product form end --}}
-
-<!-- Include jQuery and jQuery Validation Plugin -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
-
-
-<script>
-$(document).ready(function() {
-    $("#editProductForm").validate({
-        rules: {
-            category_id: {
-                required: true
-            },
-            title: {
-                required: true,
-                minlength: 3
-            },
-            description: {
-                required: true,
-                minlength: 10
-            },
-            percent_discount: {
-                required: true,
-                number: true,
-            },
-            demo_url: {
-                required: true,
-            },
-            author: {
-                required: true,
-                minlength: 3
-            },
-            price: {
-                required: true,
-                number: true,
-            },
-            stock: {
-                required: true,
-                number: true,
-            }
-        },
-        messages: {
-            category_id: {
-                required: "The category field is required"
-            },
-            title: {
-                required: "The title field is required",
-                minlength: "The title must be at least 3 characters"
-            },
-            description: {
-                required: "The description field is required",
-                minlength: "The description must be at least 10 characters"
-            },
-            percent_discount: {
-                required: "The percent discount field is required",
-                number: "Please enter a valid number",
-            },
-            demo_url: {
-                required: "The demo url must be a valid URL"
-            },
-            author: {
-                required: "The author field is required",
-                minlength: "The author must be at least 3 characters"
-            },
-            price: {
-                required: "The price field is required",
-                number: "The price must be a number",
-            },
-            stock: {
-                required: "The stock field is required",
-                number: "The stock must be a number"
-            }
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-});
-</script>
 @endsection
