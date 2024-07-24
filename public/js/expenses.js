@@ -1,5 +1,10 @@
 // expenses.js
 $(document).ready(function () {
+    $('#expenses-table').DataTable({
+        processing: true,
+        serverSide: true,
+    });
+
     $.ajax({
         type: "GET",
         url: "/api/expenses", // Update with your expenses API endpoint
